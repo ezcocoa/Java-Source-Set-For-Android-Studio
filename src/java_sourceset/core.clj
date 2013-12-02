@@ -28,8 +28,10 @@
   "Command application"
   [& args]
   (if args
-    (do
-      (println "Start monitoring...")
-      (println "If you want to exit this program, press [ctl+c].")
-      (start-monitoring (first args)))
+      (if (. (java.io.File. (first args)) exists )
+        (do
+          (println "Start monitoring...")
+          (println "If you want to exit this program, press [ctl+c].")
+          (start-monitoring (first args)))
+        (println (str "The '" (first args) "' file doesn't exist.")))
     (println "Usage: java -jar java-sourceset <project.iml>")))
